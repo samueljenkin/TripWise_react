@@ -38,6 +38,7 @@ function App() {
   return (
     <>
       <NavBar />
+      <p>{loggedInUser}</p>
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/create/trip' element={<CreateTripPage />} />

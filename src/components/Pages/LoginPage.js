@@ -16,7 +16,7 @@ const LoginPage = ({ updateLoggedInUser }) => {
                 if (res.error) {
                     console.log(res.error)
                 } else {
-                    updateLoggedInUser(res)
+                    updateLoggedInUser(res.name)
                 }
             })
     }

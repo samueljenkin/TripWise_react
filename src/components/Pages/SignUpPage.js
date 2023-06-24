@@ -12,7 +12,7 @@ const SignUpPage = ({ updateLoggedInUser }) => {
             body: JSON.stringify(data)
         })
             .then(res => res.json())
-            .then(user => updateLoggedInUser(user.email))
+            .then(user => updateLoggedInUser(user.name))
     }
 
     return (

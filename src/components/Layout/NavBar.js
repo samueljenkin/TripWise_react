@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,9 +15,11 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = [
-    { name: 'CreateTrip', path: '/create/trip'},
-    { name: 'CreateBudget', path: '/create/budget'},
-    { name: 'ViewTrips', path: '/view/trips'}
+    { name: 'View Trips', path: '/view/trips'},
+    { name: 'Create Trip', path: '/create/trip'},
+    { name: 'Create Budget', path: '/create/budget'},
+    { name: 'Log in', path: 'login'},
+    { name: 'Sign Up', path: 'signUp'}
 ];
 
 const NavBar = () => {
@@ -35,7 +37,6 @@ const NavBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -51,7 +52,7 @@ const NavBar = () => {
               textDecoration: 'none',
             }}
           >
-            Holiday Planner
+            HoliPlan
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -87,15 +88,14 @@ const NavBar = () => {
                 <MenuItem 
                     key={page.name} 
                     onClick={handleCloseNavMenu}
-                    // component={Link}
-                    // to={page.path}
+                    component={Link}
+                    to={page.path}
                 >
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -114,18 +114,19 @@ const NavBar = () => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
             {pages.map((page) => (
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-                // component={Link}
-                // to={page.path}
+                component={Link}
+                to={page.path}
               >
                 {page.name}
               </Button>
             ))}
+            
           </Box>
         </Toolbar>
       </Container>

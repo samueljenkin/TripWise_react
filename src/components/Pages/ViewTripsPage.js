@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 import { Navigate } from 'react-router-dom'
-import DefaultLayout from "../Layout/DafaultLayout";
+import DefaultLayout from "../Layout/DafaultLayout"
 
 const ViewTripsPage = ({ loggedInUser }) => {
     if (!loggedInUser) {

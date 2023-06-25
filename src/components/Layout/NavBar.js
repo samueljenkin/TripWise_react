@@ -1,28 +1,28 @@
-import * as React from 'react';
-import { useState, useEffect } from "react"
+import * as React from 'react'
+import { useState } from "react"
 import { Link } from 'react-router-dom'
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Menu from '@mui/material/Menu'
+import MenuIcon from '@mui/icons-material/Menu'
+import Container from '@mui/material/Container'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import AdbIcon from '@mui/icons-material/Adb'
 
 const pages = [
     { name: 'View Trips', path: '/view-trips'},
     { name: 'Create Trip', path: '/create-trip'},
     { name: 'Create Budget', path: '/create-budget'}
-];
+]
 
 const NavBar = ({ loggedInUser }) => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null)
 
   const controls = loggedInUser ? [
     { name: 'Log out', path: 'log-out'}
@@ -31,15 +31,13 @@ const NavBar = ({ loggedInUser }) => {
     { name: 'Sign up', path: 'sign-up'}
   ]
 
-  // useEffect(controls, [])
-
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+    setAnchorElNav(event.currentTarget)
+  }
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+    setAnchorElNav(null)
+  }
 
   return (
     <AppBar position="static">
@@ -62,8 +60,33 @@ const NavBar = ({ loggedInUser }) => {
           >
             HoliPlan
           </Typography>
+          
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              justifyContent: 'center',
+              marginLeft: '48px',
+              marginRight: 0
+            }}
+          >
+            HoliPlan
+          </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ 
+            display: { xs: 'flex', md: 'none' },
+            justifyContent: 'flex-end'
+          }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -114,24 +137,7 @@ const NavBar = ({ loggedInUser }) => {
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            HoliPlan
-          </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
             {pages.map((page) => (
               <Button
@@ -159,6 +165,7 @@ const NavBar = ({ loggedInUser }) => {
         </Toolbar>
       </Container>
     </AppBar>
-  );
+  )
 }
-export default NavBar;
+
+export default NavBar

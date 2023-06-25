@@ -1,6 +1,8 @@
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const LogOutPage = ({ setLoggedInUser }) => {
+    const navigate = useNavigate()
+
     fetch('/api/sessions', {
         method: 'DELETE'
     })
@@ -10,10 +12,9 @@ const LogOutPage = ({ setLoggedInUser }) => {
                 console.log(res.error)
             } else {
                 setLoggedInUser(null)
+                navigate('/')
             }
         })
-
-    return <Navigate replace to='/' />
 }
 
 export default LogOutPage

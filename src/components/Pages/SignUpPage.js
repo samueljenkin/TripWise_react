@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom";
-import DefaultLayout from "../Layout/DafaultLayout";
+import { useNavigate } from "react-router-dom"
+import DefaultLayout from "../Layout/DafaultLayout"
 
 const SignUpPage = ({ setLoggedInUser }) => {
     const [name, setName] = useState('')

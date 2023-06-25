@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom'
-import DefaultLayout from "../Layout/DafaultLayout";
+import DefaultLayout from "../Layout/DafaultLayout"
 
 const CreateTripPage = ({ loggedInUser }) => {
     if (!loggedInUser) {

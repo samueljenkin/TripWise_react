@@ -19,7 +19,11 @@ const SignUpPage = ({ updateLoggedInUser }) => {
             body: JSON.stringify(data)
         })
             .then(res => res.json())
-            .then(user => updateLoggedInUser(user.name))
+            .then(user => {
+                updateLoggedInUser(user.name)
+                setAuthenticated(true)
+                localStorage.setItem('authenticated', true)
+            })
     }
 
     return (

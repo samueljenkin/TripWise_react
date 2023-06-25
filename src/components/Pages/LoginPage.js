@@ -25,9 +25,9 @@ const LoginPage = ({ updateLoggedInUser }) => {
                 if (res.error) {
                     console.log(res.error)
                 } else {
+                    updateLoggedInUser(res.name)
                     setAuthenticated(true)
                     localStorage.setItem('authenticated', true)
-                    updateLoggedInUser(res.name)
                 }
             })
     }

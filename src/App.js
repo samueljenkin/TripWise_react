@@ -41,11 +41,11 @@ function App() {
       <p>{loggedInUser}</p>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/create/trip' element={<CreateTripPage />} />
-        <Route path='/create/budget' element={<CreateBudgetPage />} />
-        <Route path='/view/trips' element={<ViewTripsPage />} />
+        <Route path='/create-trip' element={<CreateTripPage />} />
+        <Route path='/create-budget' element={<CreateBudgetPage />} />
+        <Route path='/view-trips' element={<ViewTripsPage />} />
         <Route path='/login' element={<LoginPage updateLoggedInUser={updateLoggedInUser}/>} />
-        <Route path='/signUp' element={<SignUpPage updateLoggedInUser={updateLoggedInUser} />} />
+        <Route path='/sign-up' element={<SignUpPage updateLoggedInUser={updateLoggedInUser} />} />
       </Routes>
     </>
   );

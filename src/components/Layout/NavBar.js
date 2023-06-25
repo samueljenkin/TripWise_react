@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from "react"
 import { Link } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,15 +16,14 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = [
-    { name: 'View Trips', path: '/view/trips'},
-    { name: 'Create Trip', path: '/create/trip'},
-    { name: 'Create Budget', path: '/create/budget'},
-    { name: 'Log in', path: 'login'},
-    { name: 'Sign Up', path: 'signUp'}
+    { name: 'View Trips', path: '/view-trips'},
+    { name: 'Create Trip', path: '/create-trip'},
+    { name: 'Create Budget', path: '/create-budget'}
 ];
 
 const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [authenticated, setAuthenticated] = useState(localStorage.getItem('authenticated') || false)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -32,6 +32,14 @@ const NavBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const controls = authenticated ? [
+    { name: 'Log out', path: 'log-out'}
+  ] : [
+    { name: 'Log in', path: 'login'},
+    { name: 'Sign up', path: 'sign-up'}
+  ]
+
 
   return (
     <AppBar position="static">
@@ -94,6 +102,16 @@ const NavBar = () => {
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
+              {controls.map((control) => (
+                <MenuItem 
+                    key={control.name} 
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    to={control.path}
+                >
+                  <Typography textAlign="center">{control.name}</Typography>
+                </MenuItem>
+              ))}
             </Menu>
           </Box>
           <Typography
@@ -112,7 +130,7 @@ const NavBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            HoliPlan
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
             {pages.map((page) => (
@@ -126,7 +144,17 @@ const NavBar = () => {
                 {page.name}
               </Button>
             ))}
-            
+            {controls.map((control) => (
+              <Button
+                key={control.name}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+                component={Link}
+                to={control.path}
+              >
+                {control.name}
+              </Button>
+            ))}
           </Box>
         </Toolbar>
       </Container>

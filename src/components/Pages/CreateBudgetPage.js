@@ -3,17 +3,7 @@ import { Navigate } from 'react-router-dom'
 import DefaultLayout from "../Layout/DafaultLayout";
 
 const CreateBudgetPage = () => {
-    const [authenticated, setAuthenticated] = useState(false)
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        setAuthenticated(localStorage.getItem('authenticated'))
-        setLoading(false)
-    }, [])
-
-    if (loading) {
-        return <div>Loading...</div>
-    }
+    const [authenticated, setAuthenticated] = useState(localStorage.getItem('authenticated') || false)
 
     if (!authenticated) {
         return <Navigate replace to='/login' />

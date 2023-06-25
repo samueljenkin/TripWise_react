@@ -22,7 +22,7 @@ function App() {
     fetch('/api/sessions')
     .then(res => res.json())
     .then(data => {
-        if (data) {
+        if (data.user) {
             setLoggedInUser(data.user.name)
         } 
     })

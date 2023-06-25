@@ -1,11 +1,18 @@
+import { useState } from "react"
 import DefaultLayout from "../Layout/DafaultLayout";
 
 const SignUpPage = ({ updateLoggedInUser }) => {
-    function signUp(event) {
-        event.preventDefault()
-        const form = event.target
-        const data = Object.fromEntries(new FormData(form))
-      
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [authenticated, setAuthenticated] = useState(
+        localStorage.getItem(localStorage.getItem('authenticated') || false)
+    )
+    
+    const handleSubmit = e => {
+        e.preventDefault()
+        const data = {name: name, email: email, password: password}
+        
         fetch('/api/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -18,19 +25,34 @@ const SignUpPage = ({ updateLoggedInUser }) => {
     return (
         <DefaultLayout>
             <section className='sign-up'>
-                <form action="" onSubmit={signUp}>
-                    <h2>Sign Up:</h2>
+            <h2>Sign Up:</h2>
+                <form action="" onSubmit={handleSubmit}>
                     <fieldset>
-                        <label htmlFor="">Name: </label>
-                        <input type="text" name="name" />
+                        <label htmlFor="name">Name: </label>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                        />
                     </fieldset>
                     <fieldset>
-                        <label htmlFor="">Email: </label>
-                        <input type="text" name="email" />
+                        <label htmlFor="email">Email: </label>
+                        <input 
+                            type="text" 
+                            name="email" 
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                        />
                     </fieldset>
                     <fieldset>
-                        <label htmlFor="">Password: </label>
-                        <input type="password" name="password" />
+                        <label htmlFor="password">Password: </label>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
                     </fieldset>
                     <button>Sign Up</button>
                 </form>

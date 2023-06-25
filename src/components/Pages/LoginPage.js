@@ -1,10 +1,19 @@
-import DefaultLayout from "../Layout/DafaultLayout";
+import { useState } from "react"
+import DefaultLayout from "../Layout/DafaultLayout"
+// import CreateTripPage from "./CreateTripPage"
+// import CreateBudgetPage from "./CreateBudgetPage"
+
 
 const LoginPage = ({ updateLoggedInUser }) => {
-    const logIn = event => {
-        event.preventDefault()
-        const form = event.target
-        const data = Object.fromEntries(new FormData(form))
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [authenticated, setAuthenticated] = useState(
+        localStorage.getItem(localStorage.getItem('authenticated') || false)
+    )
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        const data = {email: email, password: password}
       
         fetch('/api/sessions', {
             method: 'POST',
@@ -16,6 +25,8 @@ const LoginPage = ({ updateLoggedInUser }) => {
                 if (res.error) {
                     console.log(res.error)
                 } else {
+                    setAuthenticated(true)
+                    localStorage.setItem('authenticated', true)
                     updateLoggedInUser(res.name)
                 }
             })
@@ -24,15 +35,25 @@ const LoginPage = ({ updateLoggedInUser }) => {
     return (
         <DefaultLayout>
             <section className='log-in'>
-                <form action="" onSubmit={logIn}>
-                    <h2>Login:</h2>
+            <h2>Login:</h2>
+                <form action="" onSubmit={handleSubmit}>
                     <fieldset>
-                        <label htmlFor="">Email: </label>
-                        <input type="text" name="email" />
+                        <label htmlFor="email">Email: </label>
+                        <input 
+                            type="text" 
+                            name="email" 
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                        />
                     </fieldset>
                     <fieldset>
-                        <label htmlFor="">Password: </label>
-                        <input type="password" name="password" />
+                        <label htmlFor="password">Password: </label>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
                     </fieldset>
                     <button>Log in</button>
                 </form>

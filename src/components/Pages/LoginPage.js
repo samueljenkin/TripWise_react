@@ -2,10 +2,9 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import DefaultLayout from "../Layout/DafaultLayout"
 
-const LoginPage = ({ updateLoggedInUser }) => {
+const LoginPage = ({ setLoggedInUser }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [authenticated, setAuthenticated] = useState(localStorage.getItem('authenticated') || false)
     const navigate = useNavigate()
 
     const handleSubmit = e => {
@@ -22,9 +21,7 @@ const LoginPage = ({ updateLoggedInUser }) => {
                 if (res.error) {
                     console.log(res.error)
                 } else {
-                    updateLoggedInUser(res.name)
-                    setAuthenticated(true)
-                    localStorage.setItem('authenticated', true)
+                    setLoggedInUser(res.name)
                     navigate('/')
                 }
             })

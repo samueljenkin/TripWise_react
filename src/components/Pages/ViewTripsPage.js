@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { Navigate } from 'react-router-dom'
 import DefaultLayout from "../Layout/DafaultLayout";
 
-const ViewTripsPage = () => {
-    const [authenticated, setAuthenticated] = useState(localStorage.getItem('authenticated') || false)
-
-    if (!authenticated) {
+const ViewTripsPage = ({ loggedInUser }) => {
+    if (!loggedInUser) {
         return <Navigate replace to='/login' />
     } else {
         return (

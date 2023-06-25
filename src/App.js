@@ -7,29 +7,15 @@ import CreateBudgetPage from './components/Pages/CreateBudgetPage'
 import ViewTripsPage from './components/Pages/ViewTripsPage'
 import LoginPage from './components/Pages/LoginPage'
 import SignUpPage from './components/Pages/SignUpPage'
+import LogOutPage from './components/Pages/LogOutPage'
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState('')
 
-  // update function
   function getLoggedInUser() {
-    // const find = async () => {
-    //   const res = await fetch('/api/sessions')
-    //   const user = await res.json()
-    //   console.log(user)
-    // }
-    // find()
     fetch('/api/sessions')
     .then(res => res.json())
-    .then(data => {
-        if (data.user) {
-            setLoggedInUser(data.user.name)
-        } 
-    })
-  }
-
-  function updateLoggedInUser(user) {
-    setLoggedInUser(user)
+    .then(data => data.user ? setLoggedInUser(data.user.name) : null)
   }
 
   useEffect(getLoggedInUser, [])
@@ -37,15 +23,15 @@ function App() {
 
   return (
     <>
-      <NavBar />
-      <p>{loggedInUser}</p>
+      <NavBar loggedInUser={loggedInUser} />
       <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/create-trip' element={<CreateTripPage />} />
-        <Route path='/create-budget' element={<CreateBudgetPage />} />
-        <Route path='/view-trips' element={<ViewTripsPage />} />
-        <Route path='/login' element={<LoginPage updateLoggedInUser={updateLoggedInUser}/>} />
-        <Route path='/sign-up' element={<SignUpPage updateLoggedInUser={updateLoggedInUser} />} />
+        <Route path='/' element={<HomePage loggedInUser={loggedInUser} />} />
+        <Route path='/create-trip' element={<CreateTripPage loggedInUser={loggedInUser} />} />
+        <Route path='/create-budget' element={<CreateBudgetPage loggedInUser={loggedInUser} />} />
+        <Route path='/view-trips' element={<ViewTripsPage loggedInUser={loggedInUser} />} />
+        <Route path='/login' element={<LoginPage setLoggedInUser={setLoggedInUser} />} />
+        <Route path='/sign-up' element={<SignUpPage setLoggedInUser={setLoggedInUser} />} />
+        <Route path='/log-out' element={<LogOutPage setLoggedInUser={setLoggedInUser} />} />
       </Routes>
     </>
   );

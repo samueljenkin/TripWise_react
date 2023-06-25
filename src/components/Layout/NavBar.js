@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -21,9 +21,17 @@ const pages = [
     { name: 'Create Budget', path: '/create-budget'}
 ];
 
-const NavBar = () => {
+const NavBar = ({ loggedInUser }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [authenticated, setAuthenticated] = useState(localStorage.getItem('authenticated') || false)
+
+  const controls = loggedInUser ? [
+    { name: 'Log out', path: 'log-out'}
+  ] : [
+    { name: 'Log in', path: 'login'},
+    { name: 'Sign up', path: 'sign-up'}
+  ]
+
+  // useEffect(controls, [])
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -32,14 +40,6 @@ const NavBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  const controls = authenticated ? [
-    { name: 'Log out', path: 'log-out'}
-  ] : [
-    { name: 'Log in', path: 'login'},
-    { name: 'Sign up', path: 'sign-up'}
-  ]
-
 
   return (
     <AppBar position="static">
@@ -118,7 +118,7 @@ const NavBar = () => {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },

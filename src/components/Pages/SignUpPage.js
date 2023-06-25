@@ -2,11 +2,10 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import DefaultLayout from "../Layout/DafaultLayout";
 
-const SignUpPage = ({ updateLoggedInUser }) => {
+const SignUpPage = ({ setLoggedInUser }) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [authenticated, setAuthenticated] = useState(localStorage.getItem('authenticated') || false)
     const navigate = useNavigate()
     
     const handleSubmit = e => {
@@ -20,9 +19,7 @@ const SignUpPage = ({ updateLoggedInUser }) => {
         })
             .then(res => res.json())
             .then(user => {
-                updateLoggedInUser(user.name)
-                setAuthenticated(true)
-                localStorage.setItem('authenticated', true)
+                setLoggedInUser(user.name)
                 navigate('/')
             })
     }

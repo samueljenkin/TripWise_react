@@ -11,7 +11,7 @@ const CreateTripPage = ({ loggedInUser }) => {
 
     useEffect(() => {
         if (!loggedInUser) return navigate('/login')
-    }, [])
+    }, [loggedInUser])
 
 
     // DatePicker

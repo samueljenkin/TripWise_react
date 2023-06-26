@@ -7,7 +7,7 @@ const CreateBudgetPage = ({ loggedInUser }) => {
 
     useEffect(() => {
         if (!loggedInUser) return navigate('/login')
-    }, [])
+    }, [loggedInUser])
     
     return (
         <DefaultLayout>

@@ -11,15 +11,22 @@ import LogOutPage from './components/Pages/LogOutPage'
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
 
   function getLoggedInUser() {
     fetch('/api/sessions')
-    .then(res => res.json())
-    .then(data => data.user ? setLoggedInUser(data.user.name) : null)
+      .then(res => res.json())
+      .then(data => {
+        if (data.user) return setLoggedInUser(data.user.name) 
+      })
+      .finally(() => setIsLoading(false))
   }
 
-  useEffect(getLoggedInUser, [])
+  useEffect(getLoggedInUser, [setLoggedInUser])
 
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>

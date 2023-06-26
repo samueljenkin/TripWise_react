@@ -5,7 +5,9 @@ import DefaultLayout from "../Layout/DafaultLayout"
 const ViewTripsPage = ({ loggedInUser }) => {
     const navigate = useNavigate()
 
-    if (!loggedInUser) return navigate('/login')
+    useEffect(() => {
+        if (!loggedInUser) return navigate('/login')
+    }, [])
 
     return (
         <DefaultLayout>

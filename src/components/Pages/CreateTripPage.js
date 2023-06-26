@@ -75,7 +75,7 @@ const CreateTripPage = ({ loggedInUser }) => {
             headers: {
               'Content-Type': 'application/json',
               'X-Goog-Api-Key': googlePlacesApiKey,
-              'X-Goog-FieldMask': 'places.displayName,places.priceLevel'
+              'X-Goog-FieldMask': 'places.displayName,places.priceLevel,places.websiteUri,places.rating,places.reviews'
             },
             body: JSON.stringify(request)
           }
@@ -90,16 +90,16 @@ const CreateTripPage = ({ loggedInUser }) => {
     }
 
     const getPrice = priceLevel => {
-        let newPrice = 0
+        let newPrice = ''
 
         if (priceLevel === 'INEXPENSIVE') {
-            newPrice = Math.floor(Math.random() * 50)
+            newPrice = 'Free'
         } else if (priceLevel === 'MODERATE') {
-            newPrice = Math.floor(Math.random() * 150) + 50
+            newPrice = `$${Math.floor(Math.random() * 50 + 10)}pp`
         } else if (priceLevel === 'EXPENSIVE') {
-            newPrice = Math.floor(Math.random() * 300) + 200
+            newPrice = `$${Math.floor(Math.random() * 150) + 50}pp`
         } else {
-            newPrice = Math.floor(Math.random() * 1000) + 500
+            newPrice = `$${Math.floor(Math.random() * 300) + 200}pp`
         }
 
         return newPrice
@@ -121,45 +121,57 @@ const CreateTripPage = ({ loggedInUser }) => {
         <DefaultLayout>
             <h1>Create Trip</h1>
 
-            <h2>Where?</h2>
-            <input 
-                type="text" 
-                value={location}
-                onChange={e => setLocation(e.target.value)}
-            />
+            <div className="controls container">
+                <label htmlFor="">Where: </label>
+                <input 
+                    type="text" 
+                    value={location}
+                    onChange={e => setLocation(e.target.value)}
+                />
 
-            <h2>When?</h2>
-            <DatePicker 
-                selected={startDate} 
-                onChange={handleChange} 
-                startDate={startDate}
-                endDate={endDate}
-                minDate={minDate}
-                maxDate={maxDate}
-                selectsRange
-                locale={enAU}
-                dateFormat="MMMM d, yyyy"
-            />
-            
-            <h2>Budget?</h2>
-            <label htmlFor="budget">Trip Budget (AUD)</label>
-            <input 
-                type="number" 
-                name="budget"
-                step="1000"
-                min="0"
-                max="999999"
-                value={budget}
-                onChange={e => setBudget(e.target.value)}
-            />
+                <label htmlFor="">When: </label>
+                <DatePicker 
+                    selected={startDate} 
+                    onChange={handleChange} 
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    selectsRange
+                    locale={enAU}
+                    dateFormat="MMMM d, yyyy"
+                />
+                
+                <label htmlFor="">Budget: </label>
+                <input 
+                    type="number" 
+                    step="1000"
+                    min="0"
+                    max="999999"
+                    value={budget}
+                    onChange={e => setBudget(e.target.value)}
+                />
+            </div>
 
             <button onClick={handleClick}>Search Attractions</button>
 
             <ul>
                 {attractions ? attractions.map((attraction, i) => 
                     <li key={i}>
-                        <p>{attraction.displayName.text}</p>
-                        <p>${getPrice(attraction.priceLevel)}pp</p>
+                        <p><a href={attraction.websiteUri}>{attraction.displayName.text}</a></p>
+                        <p>Cost: {getPrice(attraction.priceLevel)}</p>
+                        <p>Rating: {attraction.rating}</p>
+                        <p>Reviews:</p>
+                        <ul>
+                            {attraction.reviews.map((review, i) => 
+                                <li key={i}>
+                                    {console.log(review)}
+                                    <p>{review.author} - {review.rating} stars</p>
+                                    {review.text ? <p>{review.text.text}</p> : null}
+                                    <p>{review.relativePublishTimeDescription}</p>
+                                </li>
+                            )}
+                        </ul>
                     </li>
                 ) : null}
             </ul>

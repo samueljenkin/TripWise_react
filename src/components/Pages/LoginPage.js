@@ -21,7 +21,7 @@ const LoginPage = ({ setLoggedInUser }) => {
                 if (res.error) {
                     console.log(res.error)
                 } else {
-                    setLoggedInUser(res.name)
+                    setLoggedInUser(res.username)
                     navigate('/')
                 }
             })

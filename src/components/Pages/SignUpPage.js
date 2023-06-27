@@ -19,7 +19,7 @@ const SignUpPage = ({ setLoggedInUser }) => {
         })
             .then(res => res.json())
             .then(user => {
-                setLoggedInUser(user.name)
+                setLoggedInUser(user.username)
                 navigate('/')
             })
     }
@@ -30,28 +30,25 @@ const SignUpPage = ({ setLoggedInUser }) => {
             <h2>Sign Up:</h2>
                 <form action="" onSubmit={handleSubmit}>
                     <fieldset>
-                        <label htmlFor="name">Name: </label>
+                        <label htmlFor="">Username: </label>
                         <input 
                             type="text" 
-                            name="name" 
                             value={name}
                             onChange={e => setName(e.target.value)}
                         />
                     </fieldset>
                     <fieldset>
-                        <label htmlFor="email">Email: </label>
+                        <label htmlFor="">Email: </label>
                         <input 
                             type="text" 
-                            name="email" 
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                         />
                     </fieldset>
                     <fieldset>
-                        <label htmlFor="password">Password: </label>
+                        <label htmlFor="">Password: </label>
                         <input 
                             type="password" 
-                            name="password" 
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                         />

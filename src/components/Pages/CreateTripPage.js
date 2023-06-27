@@ -14,6 +14,24 @@ const CreateTripPage = ({ loggedInUser }) => {
     }, [loggedInUser])
 
 
+    // Trip No.
+    const [tripId, setTripId] = useState(1)
+
+    const getTripId = () => {
+        fetch('/api/attractions')
+            .then(res => res.json())
+            .then(attractions => {
+                if (attractions.length > 0) {
+                    const tripIds = attractions.map(attraction => attraction.trip_id)
+                    const maxTripId = Math.max(...tripIds)
+                    setTripId(maxTripId + 1)
+                }
+            })
+    }
+
+    useEffect(getTripId, [])
+
+
     // DatePicker
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
@@ -29,15 +47,7 @@ const CreateTripPage = ({ loggedInUser }) => {
 
 
     // Budget
-    const [budget, setBudget] = useState()
-
-
-    // move to view trips
-    const getTotalCost = () => {
-        fetch('/api/attractions')
-            .then(res => res.json())
-            .then(attractions => console.log(attractions))
-    }
+    const [budget, setBudget] = useState(0)
 
 
     // Location/ Attractions
@@ -135,6 +145,7 @@ const CreateTripPage = ({ loggedInUser }) => {
     const handleAdd = e => {
         const attractionIndex = e.target.value
         const attraction = attractions[attractionIndex]
+        attraction.tripId = tripId
 
         fetch('/api/attractions', {
             method: 'POST',
@@ -148,7 +159,7 @@ const CreateTripPage = ({ loggedInUser }) => {
 
     return (
         <DefaultLayout>
-            <h1>Create Trip</h1>
+            <h1>Create Trip #{tripId}</h1>
             
             <div className="controls container">
                 <label htmlFor="">Where: </label>
@@ -174,7 +185,7 @@ const CreateTripPage = ({ loggedInUser }) => {
                 <label htmlFor="">Budget: </label>
                 <input 
                     type="number" 
-                    step="1000"
+                    step="100"
                     min="0"
                     max="999999"
                     value={budget}

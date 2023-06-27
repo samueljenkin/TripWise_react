@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
-import DefaultLayout from "../Layout/DafaultLayout"
+import DefaultLayout from "../../Layout/DafaultLayout"
 import CreateTripLocation from './CreateTripLocation'
 import CreateTripDate from './CreateTripDate'
 import CreateTripBudget from './CreateTripBudget'
@@ -11,7 +11,7 @@ const CreateTripPage = ({ loggedInUser }) => {
   const navigate = useNavigate()
 
 	useEffect(() => {
-		if (!loggedInUser) return navigate('/login')
+		if (!loggedInUser) return navigate('/sign-up')
 	}, [])
 
 	const [tripId, setTripId] = useState()

@@ -1,4 +1,4 @@
-function CreateTripSearch({ location, startDate, endDate, budget, setAttractions }) {
+const CreateTripSearch = ({ location, startDate, endDate, budget, setAttractions }) => {
   const getPrice = attraction => {
     switch (attraction.priceLevel) {
       case 'INEXPENSIVE':

@@ -1,4 +1,4 @@
-function CreateTripLocation({ location, setLocation }) {
+const CreateTripLocation = ({ location, setLocation }) => {
   return (
     <section className="location">
       <label htmlFor="">Where: </label>

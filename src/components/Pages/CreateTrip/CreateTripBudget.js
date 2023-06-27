@@ -1,4 +1,4 @@
-function CreateTripBudget({ budget, setBudget }) {
+const CreateTripBudget = ({ budget, setBudget }) => {
   return (
     <section className="budget">
       <label htmlFor="">Budget: </label>

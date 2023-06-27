@@ -6,7 +6,7 @@ const CreateBudgetPage = ({ loggedInUser }) => {
   const navigate = useNavigate()
 
 	useEffect(() => {
-		if (!loggedInUser) return navigate('/login')
+		if (!loggedInUser) return navigate('/sign-up')
 	}, [])
     
 	return (

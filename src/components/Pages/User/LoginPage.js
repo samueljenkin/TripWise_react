@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import DefaultLayout from "../Layout/DafaultLayout"
+import DefaultLayout from "../../Layout/DafaultLayout"
 
 const LoginPage = ({ setLoggedInUser }) => {
     const [email, setEmail] = useState('')
@@ -9,8 +9,8 @@ const LoginPage = ({ setLoggedInUser }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        const data = {email: email, password: password}
-      
+        const data = { email: email, password: password }
+
         fetch('/api/sessions', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -30,22 +30,22 @@ const LoginPage = ({ setLoggedInUser }) => {
     return (
         <DefaultLayout>
             <section className='log-in'>
-            <h2>Login:</h2>
+                <h2>Login:</h2>
                 <form action="" onSubmit={handleSubmit}>
                     <fieldset>
                         <label htmlFor="email">Email: </label>
-                        <input 
-                            type="text" 
-                            name="email" 
+                        <input
+                            type="text"
+                            name="email"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                         />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="password">Password: </label>
-                        <input 
-                            type="password" 
-                            name="password" 
+                        <input
+                            type="password"
+                            name="password"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                         />

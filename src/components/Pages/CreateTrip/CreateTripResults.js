@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function CreateTripResults({ attractions, tripId, budget, totalCost, setTotalCost }) {
+const CreateTripResults = ({ attractions, tripId, budget, totalCost, setTotalCost }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleDropdown = () => {
@@ -28,7 +28,10 @@ function CreateTripResults({ attractions, tripId, budget, totalCost, setTotalCos
           attractions.map((attraction, i) => 
             <li key={i}>
               <p><a href={attraction.websiteUri}>{attraction.displayName.text}</a></p>
-              <p>Cost: {attraction.priceLevel === 0 ? 'Free' : `$${attraction.priceLevel}`}</p>
+              <p>
+                Cost: {attraction.priceLevel === 0 ? 
+                  'Free' : `$${attraction.priceLevel}`}
+              </p>
               <p>Rating: {attraction.rating}</p>
               <button onClick={toggleDropdown}>{isOpen ? 'Hide Reviews' : 'Show Reviews'}</button>
               {isOpen &&

@@ -2,12 +2,12 @@ import { Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import NavBar from './components/Layout/NavBar'
 import HomePage from './components/Pages/HomePage'
-import CreateTripPage from './components/Pages/CreateTripPage'
+import CreateTripPage from './components/Pages/CreateTrip/CreateTripPage'
 import CreateBudgetPage from './components/Pages/CreateBudgetPage'
-import ViewTripsPage from './components/Pages/ViewTripsPage'
-import LoginPage from './components/Pages/LoginPage'
-import SignUpPage from './components/Pages/SignUpPage'
-import LogOutPage from './components/Pages/LogOutPage'
+import ViewTripsPage from './components/Pages/ViewTrips/ViewTripsPage'
+import LoginPage from './components/Pages/User/LoginPage'
+import SignUpPage from './components/Pages/User/SignUpPage'
+import LogOutPage from './components/Pages/User/LogOutPage'
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState('')

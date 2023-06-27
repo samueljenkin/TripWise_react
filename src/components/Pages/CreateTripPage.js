@@ -89,33 +89,53 @@ const CreateTripPage = ({ loggedInUser }) => {
             })
     }
 
-    const getPrice = priceLevel => {
-        let newPrice = ''
+    const getPrice = attraction => {
+        const price = attraction.priceLevel
 
-        if (priceLevel === 'INEXPENSIVE') {
-            newPrice = 'Free'
-        } else if (priceLevel === 'MODERATE') {
-            newPrice = `$${Math.floor(Math.random() * 50 + 10)}pp`
-        } else if (priceLevel === 'EXPENSIVE') {
-            newPrice = `$${Math.floor(Math.random() * 150) + 50}pp`
+        if (price === 'INEXPENSIVE') {
+            return 0
+        } else if (price === 'MODERATE') {
+            return Math.floor(Math.random() * 50 + 10)
+        } else if (price === 'EXPENSIVE') {
+            return Math.floor(Math.random() * 150) + 50
         } else {
-            newPrice = `$${Math.floor(Math.random() * 300) + 200}pp`
+            return Math.floor(Math.random() * 300) + 200
         }
-
-        return newPrice
     }
 
-    const handleClick = async e => {
+    const handleSearch = async e => {
         if (location) {
             try {
                 const locationData = await getLocation(location)
                 const attractionsData = await getAttractions(locationData)
-                setAttractions(attractionsData)
+
+                const attractionsWithPrice = attractionsData.map(attraction => ({
+                    ...attraction,
+                    priceLevel: getPrice(attraction)
+                }))
+
+                setAttractions(attractionsWithPrice)
             } catch (error) {
                 console.error(error)
             }
         }
     }
+
+
+    // Add attraction
+    const handleAdd = e => {
+        const attractionIndex = e.target.value
+        const attraction = attractions[attractionIndex]
+
+        fetch('/api/attractions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(attraction)
+        })
+            .then(res => res.json())
+            .then(attraction => console.log(attraction))
+    }
+
 
     return (
         <DefaultLayout>
@@ -153,19 +173,20 @@ const CreateTripPage = ({ loggedInUser }) => {
                 />
             </div>
 
-            <button onClick={handleClick}>Search Attractions</button>
+            <button onClick={handleSearch}>Search Attractions</button>
 
             <ul>
                 {attractions ? attractions.map((attraction, i) => 
                     <li key={i}>
-                        <p><a href={attraction.websiteUri}>{attraction.displayName.text}</a></p>
-                        <p>Cost: {getPrice(attraction.priceLevel)}</p>
+                        <p>
+                            <a href={attraction.websiteUri}>{attraction.displayName.text}</a> <button onClick={handleAdd} value={i}>Add</button>
+                        </p>
+                        <p>Cost: {attraction.priceLevel === 0 ? 'Free' : `$${attraction.priceLevel}pp`}</p>
                         <p>Rating: {attraction.rating}</p>
                         <p>Reviews:</p>
                         <ul>
                             {attraction.reviews.map((review, i) => 
                                 <li key={i}>
-                                    {console.log(review)}
                                     <p>{review.author} - {review.rating} stars</p>
                                     {review.text ? <p>{review.text.text}</p> : null}
                                     <p>{review.relativePublishTimeDescription}</p>

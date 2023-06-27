@@ -17,7 +17,7 @@ function App() {
     fetch('/api/sessions')
       .then(res => res.json())
       .then(data => {
-        if (data.user) return setLoggedInUser(data.user.name) 
+        if (data.user) return setLoggedInUser(data.user.username) 
       })
       .finally(() => setIsLoading(false))
   }

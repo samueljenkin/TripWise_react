@@ -53,59 +53,6 @@ const CreateTripPage = ({ loggedInUser }) => {
     // Location/ Attractions
     const [location, setLocation] = useState('')
     const [attractions, setAttractions] = useState()
-    const openCageApiKey = process.env.REACT_APP_OPEN_CAGE_API_KEY
-    const googlePlacesApiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY
-    const googlePlacesUrl = process.env.REACT_APP_GOOGLE_PLACES_URL
-
-    const getLocation = async location => {
-        const res = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${openCageApiKey}`)
-        const locationData = await res.json()
-        const latAndLong = locationData.results[0].geometry
-        return latAndLong
-    }
-    
-    const getAttractions = async ({ lat, lng }) => {
-        const location = {
-            latitude: lat,
-            longitude: lng
-          }
-          
-          const textQuery = 'attractions'
-          const languageCode = 'en'
-          const includedType = 'tourist_attraction'
-          const priceLevels = ['INEXPENSIVE', 'MODERATE', 'EXPENSIVE', 'VERY_EXPENSIVE']
-    
-          const request = {
-            textQuery,
-            languageCode,
-            includedType,
-            priceLevels,
-            locationBias: {
-              circle: {
-                center: location,
-                radius: 1000 // Radius in meters
-              }
-            }
-          }
-          
-          const options = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Goog-Api-Key': googlePlacesApiKey,
-              'X-Goog-FieldMask': 'places.displayName,places.priceLevel,places.websiteUri,places.rating,places.reviews'
-            },
-            body: JSON.stringify(request)
-          }
-          
-          return fetch(googlePlacesUrl, options)
-            .then(response => response.json())
-            .then(data => data.places)
-            .catch(error => {
-              // Handle any errors here
-              console.error(error)
-            })
-    }
 
     const getPrice = attraction => {
         const price = attraction.priceLevel
@@ -121,21 +68,23 @@ const CreateTripPage = ({ loggedInUser }) => {
         }
     }
 
-    const handleSearch = async e => {
-        try {
-            const locationData = await getLocation(location)
-            const attractionsData = await getAttractions(locationData)
+    const handleSearch = () => {
+        const inputLocation = { location: location }
 
-            const attractionsWithPrice = attractionsData.map(attraction => ({
-                ...attraction,
-                priceLevel: getPrice(attraction)
-            }))
+        fetch('/api/google', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(inputLocation)
+        })
+            .then(res => res.json())
+            .then(attractions => {
+                const attractionsWithPrice = attractions.map(attraction => ({
+                    ...attraction,
+                    priceLevel: getPrice(attraction)
+                }))
 
-            setAttractions(attractionsWithPrice)
-        } catch (error) {
-            console.error(error)
-        }
-
+                setAttractions(attractionsWithPrice)
+            })
     }
 
 

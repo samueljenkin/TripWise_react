@@ -215,7 +215,7 @@ const CreateTripPage = ({ loggedInUser }) => {
                                 Add
                             </button>
                         </p>
-                        <p>Cost: {attraction.priceLevel === 0 ? 'Free' : `$${attraction.priceLevel}pp`}</p>
+                        <p>Cost: {attraction.priceLevel === 0 ? 'Free' : `$${attraction.priceLevel}`}</p>
                         <p>Rating: {attraction.rating}</p>
                         <p>Reviews:</p>
                         <ul>

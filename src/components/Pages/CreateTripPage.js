@@ -32,6 +32,14 @@ const CreateTripPage = ({ loggedInUser }) => {
     const [budget, setBudget] = useState()
 
 
+    // move to view trips
+    const getTotalCost = () => {
+        fetch('/api/attractions')
+            .then(res => res.json())
+            .then(attractions => console.log(attractions))
+    }
+
+
     // Location/ Attractions
     const [location, setLocation] = useState('')
     const [attractions, setAttractions] = useState()
@@ -104,25 +112,26 @@ const CreateTripPage = ({ loggedInUser }) => {
     }
 
     const handleSearch = async e => {
-        if (location) {
-            try {
-                const locationData = await getLocation(location)
-                const attractionsData = await getAttractions(locationData)
+        try {
+            const locationData = await getLocation(location)
+            const attractionsData = await getAttractions(locationData)
 
-                const attractionsWithPrice = attractionsData.map(attraction => ({
-                    ...attraction,
-                    priceLevel: getPrice(attraction)
-                }))
+            const attractionsWithPrice = attractionsData.map(attraction => ({
+                ...attraction,
+                priceLevel: getPrice(attraction)
+            }))
 
-                setAttractions(attractionsWithPrice)
-            } catch (error) {
-                console.error(error)
-            }
+            setAttractions(attractionsWithPrice)
+        } catch (error) {
+            console.error(error)
         }
+
     }
 
 
     // Add attraction
+    const [totalCost, setTotalCost] = useState(0)
+
     const handleAdd = e => {
         const attractionIndex = e.target.value
         const attraction = attractions[attractionIndex]
@@ -133,14 +142,14 @@ const CreateTripPage = ({ loggedInUser }) => {
             body: JSON.stringify(attraction)
         })
             .then(res => res.json())
-            .then(attraction => console.log(attraction))
+            .then(attraction => setTotalCost(totalCost + attraction.price_level))
     }
 
 
     return (
         <DefaultLayout>
             <h1>Create Trip</h1>
-
+            
             <div className="controls container">
                 <label htmlFor="">Where: </label>
                 <input 
@@ -173,13 +182,27 @@ const CreateTripPage = ({ loggedInUser }) => {
                 />
             </div>
 
-            <button onClick={handleSearch}>Search Attractions</button>
+            <button 
+                onClick={handleSearch} 
+                disabled={!location || !startDate || !endDate || !budget}
+            >
+                Search Attractions
+            </button>
+
+            <p>Total cost: ${totalCost}</p>
 
             <ul>
                 {attractions ? attractions.map((attraction, i) => 
                     <li key={i}>
                         <p>
-                            <a href={attraction.websiteUri}>{attraction.displayName.text}</a> <button onClick={handleAdd} value={i}>Add</button>
+                            <a href={attraction.websiteUri}>{attraction.displayName.text}</a> 
+                            <button 
+                                onClick={handleAdd} 
+                                value={i} 
+                                disabled={totalCost + attraction.priceLevel > budget}
+                            >
+                                Add
+                            </button>
                         </p>
                         <p>Cost: {attraction.priceLevel === 0 ? 'Free' : `$${attraction.priceLevel}pp`}</p>
                         <p>Rating: {attraction.rating}</p>

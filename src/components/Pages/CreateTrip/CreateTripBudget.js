@@ -1,10 +1,10 @@
 const CreateTripBudget = ({ budget, setBudget }) => {
   return (
     <section className="budget">
-      <label htmlFor="">Budget: </label>
+      <label htmlFor="">Budget (per day per person): </label>
       <input 
         type="number" 
-        step="100"
+        step="10"
         min="0"
         max="999999"
         value={budget}

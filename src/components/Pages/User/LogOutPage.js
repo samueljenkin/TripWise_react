@@ -1,8 +1,12 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const LogOutPage = ({ setLoggedInUser }) => {
+const LogOutPage = ({ loggedInUser, setLoggedInUser }) => {
   const navigate = useNavigate()
+
+  useEffect(() => {
+		if (loggedInUser) return navigate('/')
+	}, [])
 
   useEffect(() => {
     fetch('/api/sessions', {

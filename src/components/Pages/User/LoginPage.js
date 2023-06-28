@@ -1,11 +1,15 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import DefaultLayout from "../../Layout/DafaultLayout"
 
-const LoginPage = ({ setLoggedInUser }) => {
+const LoginPage = ({ loggedInUser, setLoggedInUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+		if (loggedInUser) return navigate('/')
+	}, [])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -52,6 +56,7 @@ const LoginPage = ({ setLoggedInUser }) => {
           </fieldset>
           <button>Log in</button>
         </form>
+        <p>New here? Sign up <a href="/login">here</a>.</p>
       </section>
     </DefaultLayout>
   )

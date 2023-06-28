@@ -1,12 +1,16 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import DefaultLayout from "../../Layout/DafaultLayout"
 
-const SignUpPage = ({ setLoggedInUser }) => {
+const SignUpPage = ({ loggedInUser, setLoggedInUser }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+		if (loggedInUser) return navigate('/')
+	}, [])
 
   const handleSubmit = e => {
     e.preventDefault()

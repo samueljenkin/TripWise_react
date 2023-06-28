@@ -31,9 +31,18 @@ function App() {
           <Route path='/create-trip' element={<CreateTripPage loggedInUser={loggedInUser} />} />
           <Route path='/create-budget' element={<CreateBudgetPage loggedInUser={loggedInUser} />} />
           <Route path='/view-trips' element={<ViewTripsPage loggedInUser={loggedInUser} />} />
-          <Route path='/login' element={<LoginPage setLoggedInUser={setLoggedInUser} />} />
-          <Route path='/sign-up' element={<SignUpPage setLoggedInUser={setLoggedInUser} />} />
-          <Route path='/log-out' element={<LogOutPage setLoggedInUser={setLoggedInUser} />} />
+          <Route 
+            path='/login' 
+            element={<LoginPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} 
+          />
+          <Route 
+            path='/sign-up' 
+            element={<SignUpPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} 
+          />
+          <Route 
+            path='/log-out' 
+            element={<LogOutPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} 
+          />
         </Routes>
       </>
     )

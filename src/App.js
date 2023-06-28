@@ -16,7 +16,7 @@ function App() {
   function getLoggedInUser() {
     fetch('/api/sessions')
       .then(res => res.json())
-      .then(data => data.user ? setLoggedInUser(data.user.username) : null)
+      .then(username => setLoggedInUser(username))
       .finally(() => setIsLoading(false))
   }
 

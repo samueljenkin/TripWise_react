@@ -3,18 +3,48 @@ import { useNavigate } from "react-router-dom"
 import DefaultLayout from "../../Layout/DafaultLayout"
 
 const SignUpPage = ({ loggedInUser, setLoggedInUser }) => {
-  const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordStrength, setPasswordStrength] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
 		if (loggedInUser) return navigate('/')
 	}, [])
 
+  const checkPassword = () => {
+    const passwordData = {}
+
+    passwordData.hasLowerCase = /[a-z]/g.test(password)
+    passwordData.hasUpperCase = /[A-Z]/g.test(password)
+    passwordData.hasNumber = /\d/g.test(password)
+    passwordData.hasNonAlphaNumeric = /[^a-zA-Z0-9]/g.test(password)
+    passwordData.isOver8Char = /.{8,}/g.test(password)
+    passwordData.isOver12Char = /.{12,}/g.test(password)
+    passwordData.score = Object.values(passwordData)
+        .reduce((score, value) => value ? (score++, score) : score, 0)
+
+    switch(true) {
+      case (passwordData.score < 3):
+        setPasswordStrength('Weak')
+        break
+      case (passwordData.score < 5):
+        setPasswordStrength('Moderate')
+        break
+      case (passwordData.score < 6):
+        setPasswordStrength('Strong')
+        break
+      default:
+        setPasswordStrength('Very Strong')
+    }
+  }
+
+  useEffect(checkPassword, [password])
+
   const handleSubmit = e => {
     e.preventDefault()
-    const data = { name: name, email: email, password: password }
+    const data = { username: username, email: email, password: password }
 
     fetch('/api/users', {
       method: 'POST',
@@ -22,8 +52,8 @@ const SignUpPage = ({ loggedInUser, setLoggedInUser }) => {
       body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(user => {
-        setLoggedInUser(user.username)
+      .then(username => {
+        setLoggedInUser(username)
         navigate('/')
       })
   }
@@ -37,10 +67,11 @@ const SignUpPage = ({ loggedInUser, setLoggedInUser }) => {
             <label htmlFor="">Username: </label>
             <input
               type="text"
-              value={name}
-              onChange={e => setName(e.target.value)}
+              value={username}
+              onChange={e => setUsername(e.target.value)}
             />
           </fieldset>
+
           <fieldset>
             <label htmlFor="">Email: </label>
             <input
@@ -49,6 +80,7 @@ const SignUpPage = ({ loggedInUser, setLoggedInUser }) => {
               onChange={e => setEmail(e.target.value)}
             />
           </fieldset>
+
           <fieldset>
             <label htmlFor="">Password: </label>
             <input
@@ -57,9 +89,12 @@ const SignUpPage = ({ loggedInUser, setLoggedInUser }) => {
               onChange={e => setPassword(e.target.value)}
             />
           </fieldset>
-          <button>Sign Up</button>
+          {password &&
+            <p>Password Strength: {passwordStrength}</p>
+          }
+          <button disabled={!username || !email || !password}>Sign Up</button>
         </form>
-        <p>Already have an account? Log in <a href="/login">here</a>.</p>
+        <p>Already have an account? Log in <a href="/login">here</a></p>
       </section>
     </DefaultLayout>
   )

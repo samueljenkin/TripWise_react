@@ -56,7 +56,7 @@ const LoginPage = ({ loggedInUser, setLoggedInUser }) => {
           </fieldset>
           <button>Log in</button>
         </form>
-        <p>New here? Sign up <a href="/login">here</a>.</p>
+        <p>New here? Sign up <a href="/login">here</a></p>
       </section>
     </DefaultLayout>
   )

@@ -10,9 +10,9 @@ const CreateBudgetPage = ({ loggedInUser }) => {
 	}, [])
     
 	return (
-			<DefaultLayout>
-					<h1>Create Budget Page</h1>
-			</DefaultLayout>
+		<DefaultLayout>
+			<h1>Create Budget Page</h1>
+		</DefaultLayout>
 	)
 }
 

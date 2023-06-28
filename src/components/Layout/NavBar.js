@@ -45,17 +45,19 @@ const NavBar = ({ loggedInUser }) => {
     <AppBar position="static" sx={{ backgroundColor: '#280004' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img 
-            className='logo-large'
-            src={Logo} 
-            style={{ 
-              maxWidth: '48px', 
-              height: '100%', 
-              display: { xs: 'none', md: 'flex' }, 
-              mr: 1 
-            }} 
-            alt="logo" 
-          />
+          <a href="/">
+            <img 
+              className='logo-large'
+              src={Logo} 
+              style={{ 
+                maxWidth: '48px', 
+                height: '100%', 
+                display: { xs: 'none', md: 'flex' }, 
+                mr: 1 
+              }} 
+              alt="logo" 
+            />
+          </a>
           <Typography
             variant="h6"
             noWrap
@@ -76,17 +78,20 @@ const NavBar = ({ loggedInUser }) => {
           </Typography>
           
           <div className="logo">
-            <img 
-              className='logo-small'
-              src={Logo} 
-              style={{ 
-                maxWidth: '48px', 
-                height: '100%', 
-                display: { xs: 'none', md: 'flex' }, 
-                mr: 1 
-              }} 
-              alt="logo" 
-            />
+            <a href="/">
+              <img 
+                className='logo-small'
+                src={Logo} 
+                style={{ 
+                  maxWidth: '48px', 
+                  maxHeight: '48px',
+                  height: '100%', 
+                  display: { xs: 'none', md: 'flex' }, 
+                  mr: 1 
+                }} 
+                alt="logo" 
+              />
+            </a>
             <Typography
               variant="h5"
               noWrap

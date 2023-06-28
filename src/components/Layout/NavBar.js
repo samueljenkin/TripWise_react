@@ -14,6 +14,8 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
+import Logo from '../images/TripWise-Logo.png'
+import './NavBar.css'
 
 const pages = [
     { name: 'View Trips', path: '/view-trips'},
@@ -40,9 +42,20 @@ const NavBar = ({ loggedInUser }) => {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: '#280004' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <img 
+            className='logo-large'
+            src={Logo} 
+            style={{ 
+              maxWidth: '48px', 
+              height: '100%', 
+              display: { xs: 'none', md: 'flex' }, 
+              mr: 1 
+            }} 
+            alt="logo" 
+          />
           <Typography
             variant="h6"
             noWrap
@@ -51,37 +64,53 @@ const NavBar = ({ loggedInUser }) => {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: 'Dosis',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              marginLeft: '.5rem'
             }}
           >
-            HoliPlan
+            TripWise
           </Typography>
           
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-              justifyContent: 'center',
-              marginLeft: '48px',
-              marginRight: 0
-            }}
-          >
-            HoliPlan
-          </Typography>
+          <div className="logo">
+            <img 
+              className='logo-small'
+              src={Logo} 
+              style={{ 
+                maxWidth: '48px', 
+                height: '100%', 
+                display: { xs: 'none', md: 'flex' }, 
+                mr: 1 
+              }} 
+              alt="logo" 
+            />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'Dosis',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+                justifyContent: 'center',
+                marginRight: 0,
+                marginLeft: '.5rem',
+                alignItems: 'center'
+              }}
+            >
+              TripWise
+            </Typography>
+          </div>
+          
 
           <Box sx={{ 
             display: { xs: 'flex', md: 'none' },
@@ -122,7 +151,15 @@ const NavBar = ({ loggedInUser }) => {
                     component={Link}
                     to={page.path}
                 >
-                  <Typography textAlign="center">{page.name}</Typography>
+                  <Typography 
+                    textAlign="center" 
+                    sx={{ 
+                      fontFamily: 'Expletus Sans',
+                      fontWeight: 700 
+                      }}
+                    >
+                    {page.name}
+                  </Typography>
                 </MenuItem>
               ))}
               {controls.map((control) => (
@@ -132,7 +169,15 @@ const NavBar = ({ loggedInUser }) => {
                     component={Link}
                     to={control.path}
                 >
-                  <Typography textAlign="center">{control.name}</Typography>
+                  <Typography 
+                    textAlign="center" 
+                    sx={{ 
+                      fontFamily: 'Expletus Sans',
+                      fontWeight: 700 
+                      }}
+                    >
+                    {control.name}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -143,7 +188,13 @@ const NavBar = ({ loggedInUser }) => {
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ 
+                  my: 2, 
+                  color: 'white', 
+                  display: 'block', 
+                  fontFamily: 'Expletus Sans',
+                  fontWeight: 700
+                }}
                 component={Link}
                 to={page.path}
               >
@@ -154,7 +205,13 @@ const NavBar = ({ loggedInUser }) => {
               <Button
                 key={control.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ 
+                  my: 2, 
+                  color: 'white', 
+                  display: 'block', 
+                  fontFamily: 'Expletus Sans',
+                  fontWeight: 700
+                }}
                 component={Link}
                 to={control.path}
               >

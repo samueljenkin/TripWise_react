@@ -5,6 +5,7 @@ import DefaultLayout from "../../Layout/DafaultLayout"
 const LoginPage = ({ loggedInUser, setLoggedInUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const LoginPage = ({ loggedInUser, setLoggedInUser }) => {
       .then(res => res.json())
       .then(res => {
         if (res.error) {
-          console.log(res.error)
+          setError(res.error)
         } else {
           setLoggedInUser(res.username)
           navigate('/')
@@ -34,6 +35,9 @@ const LoginPage = ({ loggedInUser, setLoggedInUser }) => {
   return (
     <DefaultLayout>
       <section className='log-in'>
+        {error &&
+          <p>{error}</p>  
+        }
         <h2>Login:</h2>
         <form action="" onSubmit={handleSubmit}>
           <fieldset>

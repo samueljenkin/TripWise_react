@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const CreateTripResults = ({ attractions, tripId, budget, totalCost, setTotalCost }) => {
+const Results = ({ attractions, tripId, budget, totalCost, setTotalCost }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleDropdown = () => {
@@ -63,4 +63,4 @@ const CreateTripResults = ({ attractions, tripId, budget, totalCost, setTotalCos
   )
 }
 
-export default CreateTripResults
+export default Results

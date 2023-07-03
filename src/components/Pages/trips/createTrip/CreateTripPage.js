@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
-import DefaultLayout from "../../Layout/DafaultLayout"
-import CreateTripLocation from './CreateTripLocation'
-import CreateTripDate from './CreateTripDate'
-import CreateTripBudget from './CreateTripBudget'
-import CreateTripSearch from './CreateTripSearch'
-import CreateTripResults from './CreateTripResults'
+import DefaultLayout from "../../../layout/DefaultLayout"
+import Location from './Location'
+import Dates from './Dates'
+import Budget from './Budget'
+import Search from './Search'
+import Results from './Results'
 
 const CreateTripPage = ({ loggedInUser }) => {
-  const navigate = useNavigate()
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		if (!loggedInUser) return navigate('/sign-up')
@@ -33,35 +33,35 @@ const CreateTripPage = ({ loggedInUser }) => {
 				} else {
 					setTripId(1)
 				}
-		})
+			})
 	}
 
-  useEffect(getTripId, [])
+	useEffect(getTripId, [])
 
-  return (
+	return (
 		<DefaultLayout>
 			<h1>Create Trip #{tripId}</h1>
 			<p>Total cost: ${totalCost}</p>
-			
+
 			<div className="search">
-				<CreateTripLocation 
+				<Location
 					location={location}
 					setLocation={setLocation}
 				/>
 
-				<CreateTripDate 
+				<Dates
 					startDate={startDate}
 					endDate={endDate}
 					setStartDate={setStartDate}
 					setEndDate={setEndDate}
 				/>
-				
-				<CreateTripBudget 
+
+				<Budget
 					budget={budget}
 					setBudget={setBudget}
 				/>
 
-				<CreateTripSearch
+				<Search
 					location={location}
 					startDate={startDate}
 					endDate={endDate}
@@ -71,7 +71,7 @@ const CreateTripPage = ({ loggedInUser }) => {
 			</div>
 
 			<div className="results">
-				<CreateTripResults
+				<Results
 					attractions={attractions}
 					tripId={tripId}
 					budget={budget}
@@ -79,8 +79,8 @@ const CreateTripPage = ({ loggedInUser }) => {
 					setTotalCost={setTotalCost}
 				/>
 			</div>
-    </DefaultLayout>
-  )
+		</DefaultLayout>
+	)
 }
 
 export default CreateTripPage

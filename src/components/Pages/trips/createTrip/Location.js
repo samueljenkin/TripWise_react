@@ -1,4 +1,4 @@
-const CreateTripLocation = ({ location, setLocation }) => {
+const Location = ({ location, setLocation }) => {
   return (
     <section className="location">
       <label htmlFor="">Where: </label>
@@ -11,4 +11,4 @@ const CreateTripLocation = ({ location, setLocation }) => {
   )
 }
 
-export default CreateTripLocation
+export default Location

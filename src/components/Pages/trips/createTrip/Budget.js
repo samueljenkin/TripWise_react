@@ -1,4 +1,4 @@
-const CreateTripBudget = ({ budget, setBudget }) => {
+const Budget = ({ budget, setBudget }) => {
   return (
     <section className="budget">
       <label htmlFor="">Budget (per day per person): </label>
@@ -14,4 +14,4 @@ const CreateTripBudget = ({ budget, setBudget }) => {
   )
 }
 
-export default CreateTripBudget
+export default Budget

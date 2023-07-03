@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import DefaultLayout from "../../Layout/DafaultLayout"
+import DefaultLayout from "../../layout/DefaultLayout"
 
 const LoginPage = ({ loggedInUser, setLoggedInUser }) => {
   const [email, setEmail] = useState('')
@@ -9,8 +9,8 @@ const LoginPage = ({ loggedInUser, setLoggedInUser }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-		if (loggedInUser) return navigate('/')
-	}, [])
+    if (loggedInUser) return navigate('/')
+  }, [])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -36,7 +36,7 @@ const LoginPage = ({ loggedInUser, setLoggedInUser }) => {
     <DefaultLayout>
       <section className='log-in'>
         {error &&
-          <p>{error}</p>  
+          <p>{error}</p>
         }
         <h2>Login:</h2>
         <form action="" onSubmit={handleSubmit}>

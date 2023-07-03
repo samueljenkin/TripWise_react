@@ -1,4 +1,4 @@
-const CreateTripSearch = ({ location, startDate, endDate, budget, setAttractions }) => {
+const Search = ({ location, startDate, endDate, budget, setAttractions }) => {
   const getPrice = attraction => {
     switch (attraction.priceLevel) {
       case 'INEXPENSIVE':
@@ -41,4 +41,4 @@ const CreateTripSearch = ({ location, startDate, endDate, budget, setAttractions
   )
 }
 
-export default CreateTripSearch
+export default Search

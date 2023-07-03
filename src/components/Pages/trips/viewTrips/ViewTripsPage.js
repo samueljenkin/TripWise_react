@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
-import DefaultLayout from "../../Layout/DafaultLayout"
-import ViewTripsList from "./ViewTripsList"
-import ViewTripsSaved from "./ViewTripsSaved"
+import DefaultLayout from "../../../layout/DefaultLayout"
+import Trips from "./Trips"
+import TripItems from "./TripItems"
 
 const ViewTripsPage = ({ loggedInUser }) => {
 	const navigate = useNavigate()
@@ -25,18 +25,18 @@ const ViewTripsPage = ({ loggedInUser }) => {
 			})
 	}
 
-  useEffect(getUsersTripData, [])
+	useEffect(getUsersTripData, [])
 
 	return (
 		<DefaultLayout>
 			<h1>View Trips Page</h1>
 
-			<ViewTripsList 
+			<Trips
 				tripIds={tripIds}
 				setCurrentTripId={setCurrentTripId}
 			/>
 
-			<ViewTripsSaved 
+			<TripItems
 				tripData={tripData}
 				currentTripId={currentTripId}
 			/>

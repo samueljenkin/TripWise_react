@@ -1,4 +1,4 @@
-const ViewTripsSaved = ({ tripData, currentTripId }) => {
+const TripItems = ({ tripData, currentTripId }) => {
   const getCurrentTrip = attraction => attraction.trip_id === currentTripId
 
   const getTripCost = () => tripData
@@ -32,4 +32,4 @@ const ViewTripsSaved = ({ tripData, currentTripId }) => {
   )
 }
 
-export default ViewTripsSaved
+export default TripItems

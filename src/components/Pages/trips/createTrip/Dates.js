@@ -2,7 +2,7 @@ import DatePicker from 'react-datepicker'
 import enAU from 'date-fns/locale/en-AU'
 import 'react-datepicker/dist/react-datepicker.css'
 
-const CreateTripDate = ({ startDate, endDate, setStartDate, setEndDate }) => {
+const Dates = ({ startDate, endDate, setStartDate, setEndDate }) => {
   const minDate = new Date()
   const maxDate = new Date()
   maxDate.setFullYear(maxDate.getFullYear() + 1)
@@ -31,4 +31,4 @@ const CreateTripDate = ({ startDate, endDate, setStartDate, setEndDate }) => {
   )
 }
 
-export default CreateTripDate
+export default Dates

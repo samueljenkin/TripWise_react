@@ -1,4 +1,4 @@
-const ViewTripsList = ({ tripIds, setCurrentTripId }) => {
+const Trips = ({ tripIds, setCurrentTripId }) => {
   const handleClick = e => {
     const tripId = Number(e.target.value)
     setCurrentTripId(tripId)
@@ -21,4 +21,4 @@ const ViewTripsList = ({ tripIds, setCurrentTripId }) => {
   )
 }
 
-export default ViewTripsList
+export default Trips

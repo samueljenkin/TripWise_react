@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import NavBar from './components/Layout/NavBar'
-import HomePage from './components/Pages/HomePage'
-import CreateTripPage from './components/Pages/CreateTrip/CreateTripPage'
-import CreateBudgetPage from './components/Pages/CreateBudgetPage'
-import ViewTripsPage from './components/Pages/ViewTrips/ViewTripsPage'
-import LoginPage from './components/Pages/User/LoginPage'
-import SignUpPage from './components/Pages/User/SignUpPage'
-import LogOutPage from './components/Pages/User/LogOutPage'
+import NavBar from './components/layout/NavBar'
+import HomePage from './components/pages/HomePage'
+import CreateTripPage from './components/pages/trips/createTrip/CreateTripPage'
+import CreateBudgetPage from './components/pages/budget/BudgetPage'
+import ViewTripsPage from './components/pages/trips/viewTrips/ViewTripsPage'
+import LoginPage from './components/pages/auth/LoginPage'
+import SignUpPage from './components/pages/auth/SignUpPage'
+import LogOutPage from './components/pages/auth/LogOutPage'
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState('')
@@ -31,17 +31,17 @@ function App() {
           <Route path='/create-trip' element={<CreateTripPage loggedInUser={loggedInUser} />} />
           <Route path='/create-budget' element={<CreateBudgetPage loggedInUser={loggedInUser} />} />
           <Route path='/view-trips' element={<ViewTripsPage loggedInUser={loggedInUser} />} />
-          <Route 
-            path='/login' 
-            element={<LoginPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} 
+          <Route
+            path='/login'
+            element={<LoginPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />}
           />
-          <Route 
-            path='/sign-up' 
-            element={<SignUpPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} 
+          <Route
+            path='/sign-up'
+            element={<SignUpPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />}
           />
-          <Route 
-            path='/log-out' 
-            element={<LogOutPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />} 
+          <Route
+            path='/log-out'
+            element={<LogOutPage loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />}
           />
         </Routes>
       </>

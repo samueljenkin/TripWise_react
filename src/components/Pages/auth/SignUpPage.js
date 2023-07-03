@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import DefaultLayout from "../../Layout/DafaultLayout"
+import DefaultLayout from "../../layout/DefaultLayout"
 
 const SignUpPage = ({ loggedInUser, setLoggedInUser }) => {
   const [username, setUsername] = useState('')
@@ -10,8 +10,8 @@ const SignUpPage = ({ loggedInUser, setLoggedInUser }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-		if (loggedInUser) return navigate('/')
-	}, [])
+    if (loggedInUser) return navigate('/')
+  }, [])
 
   const checkPassword = () => {
     const passwordData = {}
@@ -23,9 +23,9 @@ const SignUpPage = ({ loggedInUser, setLoggedInUser }) => {
     passwordData.isOver8Char = /.{8,}/g.test(password)
     passwordData.isOver12Char = /.{12,}/g.test(password)
     passwordData.score = Object.values(passwordData)
-        .reduce((score, value) => value ? (score++, score) : score, 0)
+      .reduce((score, value) => value ? (score++, score) : score, 0)
 
-    switch(true) {
+    switch (true) {
       case (passwordData.score < 3):
         setPasswordStrength('Weak')
         break

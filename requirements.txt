@@ -1,0 +1,14 @@
+@babel/plugin-proposal-private-property-in-object
+@emotion/react
+@emotion/styled
+@mui/icons-material
+@mui/material
+@testing-library/jest-dom
+@testing-library/react
+@testing-library/user-event
+bootstrap
+react-datepicker
+react-icons
+react-router-dom
+uuid
+web-vitals
